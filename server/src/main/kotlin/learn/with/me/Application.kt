@@ -14,7 +14,7 @@ fun main() {
 fun Application.module() {
     routing {
         get("/") {
-            call.respondText("Welcome to learn with me backend!")
+            call.respondText("Welcome to Learn with me backend!")
         }
     }
 }

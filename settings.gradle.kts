@@ -2,6 +2,7 @@ rootProject.name = "LearnWithme"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             mavenContent {
@@ -16,6 +17,7 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
     repositories {
         google {
             mavenContent {
@@ -32,6 +34,10 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+rootProject.name= "LearnWithMe"
+include(":feature:auth")
+include(":feature:lesson")
 include(":composeApp")
 include(":server")
 include(":shared")
+include("navigation")
