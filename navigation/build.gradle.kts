@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -5,6 +6,9 @@ plugins {
 }
 
 kotlin {
+    androidLibrary {
+        namespace = "learn.with.me.navigation"
+    }
     iosArm64()
     iosSimulatorArm64()
 
@@ -29,8 +33,4 @@ kotlin {
             implementation(projects.feature.lesson)
         }
     }
-}
-
-android {
-    namespace = "learn.with.me.navigation"
 }

@@ -69,7 +69,7 @@ kotlin {
 
 android {
     namespace = "learn.with.me"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "learn.with.me"

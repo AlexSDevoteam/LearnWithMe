@@ -1,13 +1,16 @@
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kmpLibrary)
 }
 
 kotlin {
-    androidTarget {
+    androidLibrary {
+        namespace = "learn.with.me.shared"
+        compileSdk = libs.versions.compileSdk.get().toInt()
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_21)
         }
@@ -34,17 +37,5 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-    }
-}
-
-android {
-    namespace = "learn.with.me.shared"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 }

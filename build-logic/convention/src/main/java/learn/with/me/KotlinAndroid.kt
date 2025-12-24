@@ -16,70 +16,44 @@
 
 package learn.with.me
 
-import com.android.build.api.dsl.CommonExtension
-import org.gradle.api.JavaVersion
+import com.android.build.api.dsl.androidLibrary
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-
-/**
- * Configure base Kotlin
- */
-internal fun Project.configureKotlin(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
-) {
-    commonExtension.apply {
-        compileSdk = 36
-
-        defaultConfig {
-            minSdk = 24
-        }
-
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_21
-            targetCompatibility = JavaVersion.VERSION_21
-//            isCoreLibraryDesugaringEnabled = true
-        }
-    }
-
-    configureKotlin<KotlinMultiplatformExtension>()
-}
-
-/**
- * Configure base Kotlin options for JVM (non-Android)
- */
-internal fun Project.configureKotlinJvm() {
-    extensions.configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    configureKotlin<KotlinJvmProjectExtension>()
-}
 
 /**
  * Configure base Kotlin options
  */
-private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {
+internal fun Project.configureKotlin() = configure<KotlinMultiplatformExtension> {
     // Treat all Kotlin warnings as errors (disabled by default)
     // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
     val warningsAsErrors = providers.gradleProperty("warningsAsErrors").map {
         it.toBoolean()
     }.orElse(false)
-    when (this) {
-        is KotlinMultiplatformExtension -> compilerOptions
-        else -> TODO("Unsupported project extension $this ${T::class}")
-    }.apply {
-        androidTarget {
+
+    compilerOptions.apply {
+        androidLibrary {
+            compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
+            androidResources {
+                enable = true
+            }
             compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_21)
             }
+            /* TODO configure the flavors for free and paid app
+            localDependencySelection {
+                // For dependencies with multiple build types, select 'debug' first, and 'release' in case 'debug' is missing
+                selectBuildTypeFrom.set(listOf("debug", "release"))
+
+                // For dependencies with a 'type' flavor dimension...
+                productFlavorDimension("type") {
+                    // Flavors
+                }
+            }*/
         }
+
         allWarningsAsErrors = warningsAsErrors
         freeCompilerArgs.add(
             // Enable experimental coroutines APIs, including Flow

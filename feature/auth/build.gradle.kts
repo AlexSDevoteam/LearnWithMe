@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -5,6 +6,9 @@ plugins {
 }
 
 kotlin {
+    androidLibrary {
+        namespace = "learn.with.me.auth"
+    }
     iosArm64()
     iosSimulatorArm64()
 
@@ -26,8 +30,4 @@ kotlin {
             implementation(libs.kotlin.test)
         }
     }
-}
-
-android {
-    namespace = "learn.with.me.feature.auth"
 }
