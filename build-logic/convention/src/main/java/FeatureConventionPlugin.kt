@@ -14,35 +14,28 @@
  *   limitations under the License.
  */
 
-import learn.with.me.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.dependencies
-
+import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.compose.ComposeExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class FeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "learn.with.me.library")
+            //plugins need to be in "core" build.gradle
+            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+            apply(plugin = "org.jetbrains.compose")
             apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
-            apply(plugin = "org.jetbrains.compose")
-            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+            val compose = extensions.getByType<ComposeExtension>()
+            val kotlin = extensions.getByType<KotlinMultiplatformExtension>()
 
-
-            dependencies {
-//                "implementation"(project(":core:ui"))
-
-                "implementation"(project(":shared"))
-                "implementation"(libs.findLibrary("org.jetbrains.compose.material3").get())
-
-//                "implementation"(libs.findLibrary("kotlinx.serialization.json").get())
-
-//                "testImplementation"(libs.findLibrary("androidx.navigation.testing").get())
-//                "androidTestImplementation"(
-//                    libs.findLibrary("androidx.lifecycle.runtimeTesting").get(),
-//                )
+            kotlin.sourceSets.getByName("commonMain").dependencies {
+                implementation(project(":shared"))
+                implementation(compose.dependencies.material3)
             }
         }
     }

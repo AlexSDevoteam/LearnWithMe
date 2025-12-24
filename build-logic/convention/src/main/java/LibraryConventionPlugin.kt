@@ -1,10 +1,11 @@
 import com.android.build.api.dsl.LibraryExtension
-import learn.with.me.configureKotlinAndroid
+import learn.with.me.configureKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.internal.Actions.with
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 /*
  * Copyright 2022 The Android Open Source Project
@@ -31,17 +32,20 @@ class LibraryConventionPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.multiplatform")
 
             extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this)
-//                testOptions.targetSdk = 36
-//                defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//                testOptions.animationsDisabled = true
-                // TODO configure the flavors for free and paid app
-//                configureFlavors(this)
-                // The resource prefix is derived from the module name,
-                // so resources inside ":core:module1" must be prefixed with "core_module1_"
+                configureKotlin(this)
+                /*testOptions.targetSdk = 36
+                defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                testOptions.animationsDisabled = true*/
+                 /*TODO configure the flavors for free and paid app
+                configureFlavors(this)*/
+                 /*The resource prefix is derived from the module name,
+                 so resources inside ":core:module1" must be prefixed with "core_module1_"*/
                 resourcePrefix =
                     path.split("""\W""".toRegex()).drop(1).distinct().joinToString(separator = "_")
                         .lowercase() + "_"
+            }
+            dependencies {
+                "implementation"(project(":shared"))
             }
         }
     }
