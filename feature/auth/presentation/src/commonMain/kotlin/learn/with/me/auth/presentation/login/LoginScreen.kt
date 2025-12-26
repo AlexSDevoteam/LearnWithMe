@@ -1,5 +1,4 @@
-package learn.with.me.auth.learn.with.me.presentation
-
+package learn.with.me.auth.presentation.login
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AuthNavigation(
+fun LoginScreen(
     modifier: Modifier = Modifier,
     onLogin: () -> Unit
 ) {
@@ -24,7 +23,7 @@ fun AuthNavigation(
         contentAlignment = Alignment.Center
     ) {
         Column {
-            Text("Auth Navigation Screen")
+            Text("Login Navigation Screen")
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = onLogin

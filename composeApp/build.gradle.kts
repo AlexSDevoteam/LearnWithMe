@@ -55,8 +55,14 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            //Nav3
+            implementation(libs.jetbrains.lifecycle.viewmodel.nav3)
+            implementation(libs.jetbrains.navigation3.ui)
+
             implementation(projects.shared)
-            implementation(projects.navigation)
+            implementation(projects.feature.auth.presentation)
+            implementation(projects.feature.lesson.presentation)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

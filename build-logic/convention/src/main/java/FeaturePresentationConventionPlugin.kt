@@ -1,3 +1,4 @@
+import learn.with.me.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -18,6 +19,8 @@ class FeaturePresentationConventionPlugin : Plugin<Project> {
 
             kotlin.sourceSets.getByName("commonMain").dependencies {
                 implementation(compose.dependencies.material3)
+                implementation(libs.findLibrary("jetbrains-lifecycle-viewmodel-nav3").get())
+                implementation(libs.findLibrary("jetbrains-navigation3-ui").get())
             }
         }
     }

@@ -15,8 +15,10 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import learn.with.me.auth.learn.with.me.presentation.AuthNavigation
+import learn.with.me.auth.presentation.AuthNavigation
+import learn.with.me.auth.presentation.AuthRoute
 import learn.with.me.lesson.presentation.LessonNavigation
+import learn.with.me.lesson.presentation.LessonRoute
 
 @Composable
 fun NavigationRoot(modifier: Modifier = Modifier) {
@@ -24,12 +26,12 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
         configuration = SavedStateConfiguration {
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
-                    subclass(Route.Auth::class, Route.Auth.serializer())
-                    subclass(Route.Lesson::class, Route.Lesson.serializer())
+                    subclass(AuthRoute.Auth::class, AuthRoute.Auth.serializer())
+                    subclass(LessonRoute.Lesson::class, LessonRoute.Lesson.serializer())
                 }
             }
         },
-        Route.Auth
+        AuthRoute.Auth
     )
     NavDisplay(
         modifier = modifier,
@@ -43,14 +45,14 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
             rememberViewModelStoreNavEntryDecorator()
         ),
         entryProvider = entryProvider {
-            entry<Route.Auth> {
+            entry<AuthRoute.Auth> {
                 AuthNavigation(
                     onLogin = {
-                        rootBackStack.add(Route.Lesson)
+                        rootBackStack.add(LessonRoute.Lesson)
                     }
                 )
             }
-            entry<Route.Lesson> {
+            entry<LessonRoute.Lesson> {
                 LessonNavigation()
             }
         }
