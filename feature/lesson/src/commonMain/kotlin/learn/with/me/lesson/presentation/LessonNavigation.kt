@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import learn.with.me.SERVER_PORT
 
 @Composable
 fun LessonNavigation(modifier: Modifier = Modifier) {
@@ -14,6 +15,6 @@ fun LessonNavigation(modifier: Modifier = Modifier) {
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text("Lesson Navigation Screen")
+        Text("Lesson Navigation Screen $SERVER_PORT")
     }
 }
