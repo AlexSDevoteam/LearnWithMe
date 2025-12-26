@@ -63,6 +63,7 @@ kotlin {
             implementation(projects.shared)
             implementation(projects.feature.auth.presentation)
             implementation(projects.feature.lesson.presentation)
+            implementation(projects.feature.settings.presentation)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
