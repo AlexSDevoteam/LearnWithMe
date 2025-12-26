@@ -15,7 +15,7 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import learn.with.me.auth.presentation.AuthNavigation
+import learn.with.me.auth.learn.with.me.presentation.AuthNavigation
 import learn.with.me.lesson.presentation.LessonNavigation
 
 @Composable

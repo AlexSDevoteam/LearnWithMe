@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "learn.with.me.navigation"
+        namespace = "learn.with.me.lesson.presentation"
     }
     iosArm64()
     iosSimulatorArm64()
@@ -25,12 +25,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.jetbrains.navigation3.ui)
-//            implementation(libs.jetbrains.lifecycle.viewmodel)
-            implementation(libs.jetbrains.lifecycle.viewmodel.nav3)
-
-            implementation(projects.feature.auth.presentation)
-            implementation(projects.feature.lesson.presentation)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
     }
 }

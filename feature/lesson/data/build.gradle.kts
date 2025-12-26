@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "learn.with.me.auth"
+        namespace = "learn.with.me.lesson.data"
     }
     iosArm64()
     iosSimulatorArm64()

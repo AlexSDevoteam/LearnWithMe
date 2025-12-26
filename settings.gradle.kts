@@ -29,9 +29,13 @@ dependencyResolutionManagement {
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name= "LearnWithMe"
-include(":feature:auth")
-include(":feature:lesson")
+include(":feature:auth:data")
+include(":feature:auth:domain")
+include(":feature:auth:presentation")
+include(":feature:lesson:data")
+include(":feature:lesson:domain")
+include(":feature:lesson:presentation")
 include(":composeApp")
 include(":server")
 include(":shared")
-include("navigation")
+include(":navigation")

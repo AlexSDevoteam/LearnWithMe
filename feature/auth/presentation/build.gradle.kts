@@ -2,12 +2,12 @@ import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-    alias(libs.plugins.learn.with.me.feature)
+    alias(libs.plugins.learn.with.me.feature.presentation)
 }
 
 kotlin {
     androidLibrary {
-        namespace = "learn.with.me.lesson"
+        namespace = "learn.with.me.auth.presentation"
     }
     iosArm64()
     iosSimulatorArm64()
@@ -25,6 +25,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.feature.auth.domain)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

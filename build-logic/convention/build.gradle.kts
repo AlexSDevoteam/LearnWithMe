@@ -30,8 +30,12 @@ gradlePlugin {
             implementationClass = "LibraryConventionPlugin"
         }
         register("feature") {
-            id = libs.plugins.learn.with.me.feature.get().pluginId
+            id = "learn.with.me.feature"
             implementationClass = "FeatureConventionPlugin"
+        }
+        register("featurePresentation") {
+            id = libs.plugins.learn.with.me.feature.presentation.get().pluginId
+            implementationClass = "FeaturePresentationConventionPlugin"
         }
     }
 }

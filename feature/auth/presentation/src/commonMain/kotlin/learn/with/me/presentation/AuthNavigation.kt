@@ -1,4 +1,4 @@
-package learn.with.me.auth.presentation
+package learn.with.me.auth.learn.with.me.presentation
 
 
 import androidx.compose.foundation.layout.Box
