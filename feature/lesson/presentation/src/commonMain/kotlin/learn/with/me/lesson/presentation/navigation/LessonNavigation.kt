@@ -1,15 +1,20 @@
-package learn.with.me.lesson.presentation
+package learn.with.me.lesson.presentation.navigation
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
@@ -27,13 +32,18 @@ fun LessonNavigation(modifier: Modifier = Modifier) {
         configuration = SavedStateConfiguration {
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
-                    subclass(LessonRoute.Lesson.LessonList::class, LessonRoute.Lesson.LessonList.serializer())
-                    subclass(LessonRoute.Lesson.LessonFavorites::class, LessonRoute.Lesson.LessonFavorites.serializer())
-                    subclass(LessonRoute.Lesson.LessonDetail::class, LessonRoute.Lesson.LessonDetail.serializer())
+                    subclass(
+                        LessonRoute.Lesson.Favorites::class,
+                        LessonRoute.Lesson.Favorites.serializer()
+                    )
+                    subclass(
+                        LessonRoute.Lesson.Detail::class,
+                        LessonRoute.Lesson.Detail.serializer()
+                    )
                 }
             }
         },
-        LessonRoute.Lesson.LessonList
+        LessonRoute.Lesson.Favorites
     )
     NavDisplay(
         modifier = modifier,
@@ -47,13 +57,30 @@ fun LessonNavigation(modifier: Modifier = Modifier) {
             rememberViewModelStoreNavEntryDecorator()
         ),
         entryProvider = entryProvider {
-            entry<LessonRoute.Lesson.LessonList> {
+            entry<LessonRoute.Lesson.Detail> {
                 Box(
                     modifier = modifier
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Lesson Navigation Screen $SERVER_PORT")
+                    Text("Lesson Detail Screen ${it.lessonId} $SERVER_PORT")
+                }
+            }
+            entry<LessonRoute.Lesson.Favorites> {
+                Box(
+                    modifier = modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column {
+                        Text("Lesson Favorites Screen")
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(
+                            onClick = { lessonBackStack.add(LessonRoute.Lesson.Detail("123")) }
+                        ) {
+                            Text("Details Screen")
+                        }
+                    }
                 }
             }
         }

@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -39,12 +38,11 @@ fun AuthNavigation(
         modifier = modifier,
         backStack = authBackStack,
         transitionSpec = {
-            fadeIn(animationSpec = tween(durationMillis = 1000)) togetherWith
-                    fadeOut(animationSpec = tween(durationMillis = 1000))
+            fadeIn(animationSpec = tween(durationMillis = 500)) togetherWith
+                    fadeOut(animationSpec = tween(durationMillis = 500))
         },
         entryDecorators = listOf(
             rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator()
         ),
         entryProvider = entryProvider {
             entry<AuthRoute.Auth.Login> {
@@ -57,7 +55,6 @@ fun AuthNavigation(
                 RegisterScreen(
                     modifier = modifier,
                     onRegister = {
-                        authBackStack.remove(AuthRoute.Auth.Register)
                         authBackStack.add(AuthRoute.Auth.Login)
                     }
                 )

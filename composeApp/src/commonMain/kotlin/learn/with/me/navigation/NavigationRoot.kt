@@ -17,21 +17,19 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import learn.with.me.auth.presentation.AuthNavigation
 import learn.with.me.auth.presentation.AuthRoute
-import learn.with.me.lesson.presentation.LessonNavigation
-import learn.with.me.lesson.presentation.LessonRoute
 
 @Composable
-fun NavigationRoot(modifier: Modifier = Modifier) {
+fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
     val rootBackStack = rememberNavBackStack(
         configuration = SavedStateConfiguration {
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
                     subclass(AuthRoute.Auth::class, AuthRoute.Auth.serializer())
-                    subclass(LessonRoute.Lesson::class, LessonRoute.Lesson.serializer())
+                    subclass(Route.Home::class, Route.Home.serializer())
                 }
             }
         },
-        AuthRoute.Auth
+        startDestination
     )
     NavDisplay(
         modifier = modifier,
@@ -48,12 +46,18 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
             entry<AuthRoute.Auth> {
                 AuthNavigation(
                     onLogin = {
-                        rootBackStack.add(LessonRoute.Lesson)
+                        rootBackStack.remove(AuthRoute.Auth)
+                        rootBackStack.add(Route.Home)
                     }
                 )
             }
-            entry<LessonRoute.Lesson> {
-                LessonNavigation()
+            entry<Route.Home> {
+                HomeNavigationRoot(
+                    onLogout = {
+                        rootBackStack.remove(Route.Home)
+                        rootBackStack.add(AuthRoute.Auth)
+                    }
+                )
             }
         }
     )
