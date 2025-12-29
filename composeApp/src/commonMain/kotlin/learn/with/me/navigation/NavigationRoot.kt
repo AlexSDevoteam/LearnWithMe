@@ -3,76 +3,62 @@ package learn.with.me.navigation
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import androidx.savedstate.serialization.SavedStateConfiguration
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
 import learn.with.me.auth.presentation.AuthNavigation
-import learn.with.me.lesson.presentation.navigation.LessonNavigation
-import learn.with.me.lesson.presentation.navigation.LessonRoute
-import learn.with.me.navigation.navbar.HomeNavigationBar
-import learn.with.me.navigation.navbar.TOP_LEVEL_DESTINATIONS
-import learn.with.me.settings.presentation.SettingsScreen
-import learn.with.me.settings.presentation.navigation.SettingsRoute
+import learn.with.me.auth.presentation.AuthRoute
 
 @Composable
-fun NavigationRoot(modifier: Modifier = Modifier) {
-    val navigationState = rememberNavigationState(
-        startRoute = LessonRoute.Lesson.List,
-        topLevelRoutes = TOP_LEVEL_DESTINATIONS.keys
-    )
-    val navigator = remember {
-        Navigator(navigationState)
-    }
-
-    Scaffold(
-        modifier = modifier,
-        bottomBar = {
-            HomeNavigationBar(
-                selectedKey = navigationState.topLevelRoute,
-                onSelectKey = { navigator.navigate(it) }
-            )
-        }
-    ) {
-        NavDisplay(
-            modifier = modifier,
-            onBack = navigator::goBack,
-            transitionSpec = {
-                slideInHorizontally(animationSpec = tween(durationMillis = 500)) { it } +
-                        fadeIn() togetherWith slideOutHorizontally { -it } + fadeOut()
-            },
-            popTransitionSpec = {
-                slideInHorizontally { -it } + fadeIn() togetherWith
-                        slideOutHorizontally { it } + fadeOut()
-                //  fadeIn(animationSpec = tween(durationMillis = 1000)) togetherWith fadeOut(animationSpec = tween(durationMillis = 1000))
-            },
-            predictivePopTransitionSpec = {
-                slideInHorizontally { -it } + fadeIn() togetherWith
-                        slideOutHorizontally { it } + fadeOut()
-            },
-            entries = navigationState.toEntries(
-                entryProvider {
-                    entry<LessonRoute.Lesson.List> {
-                        AuthNavigation(
-                            onLogin = {
-                                navigator.navigate(LessonRoute.Lesson.List)
-                            }
-                        )
-                    }
-                    entry<LessonRoute.Lesson.Favorites> {
-                        LessonNavigation()
-//                        LessonFavoritesScreen()
-                    }
-                    entry<SettingsRoute.Settings> {
-                        SettingsScreen()
-                    }
+fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
+    val rootBackStack = rememberNavBackStack(
+        configuration = SavedStateConfiguration {
+            serializersModule = SerializersModule {
+                polymorphic(NavKey::class) {
+                    subclass(AuthRoute.Auth::class, AuthRoute.Auth.serializer())
+                    subclass(Route.Home::class, Route.Home.serializer())
                 }
-            )
-        )
-    }
+            }
+        },
+        startDestination
+    )
+    NavDisplay(
+        modifier = modifier,
+        backStack = rootBackStack,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(durationMillis = 1000)) togetherWith
+                    fadeOut(animationSpec = tween(durationMillis = 1000))
+        },
+        entryDecorators = listOf(
+            rememberSaveableStateHolderNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator()
+        ),
+        entryProvider = entryProvider {
+            entry<AuthRoute.Auth> {
+                AuthNavigation(
+                    onLogin = {
+                        rootBackStack.remove(AuthRoute.Auth)
+                        rootBackStack.add(Route.Home)
+                    }
+                )
+            }
+            entry<Route.Home> {
+                HomeNavigationRoot(
+                    onLogout = {
+                        rootBackStack.remove(Route.Home)
+                        rootBackStack.add(AuthRoute.Auth)
+                    }
+                )
+            }
+        }
+    )
 }
