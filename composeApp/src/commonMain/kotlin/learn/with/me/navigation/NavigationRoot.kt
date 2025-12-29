@@ -16,7 +16,6 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import learn.with.me.auth.presentation.AuthNavigation
-import learn.with.me.auth.presentation.AuthRoute
 
 @Composable
 fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
@@ -24,7 +23,7 @@ fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
         configuration = SavedStateConfiguration {
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
-                    subclass(AuthRoute.Auth::class, AuthRoute.Auth.serializer())
+                    subclass(Route.Auth::class, Route.Auth.serializer())
                     subclass(Route.Home::class, Route.Home.serializer())
                 }
             }
@@ -43,10 +42,10 @@ fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
             rememberViewModelStoreNavEntryDecorator()
         ),
         entryProvider = entryProvider {
-            entry<AuthRoute.Auth> {
+            entry<Route.Auth> {
                 AuthNavigation(
                     onLogin = {
-                        rootBackStack.remove(AuthRoute.Auth)
+                        rootBackStack.remove(Route.Auth)
                         rootBackStack.add(Route.Home)
                     }
                 )
@@ -55,7 +54,7 @@ fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
                 HomeNavigationRoot(
                     onLogout = {
                         rootBackStack.remove(Route.Home)
-                        rootBackStack.add(AuthRoute.Auth)
+                        rootBackStack.add(Route.Auth)
                     }
                 )
             }

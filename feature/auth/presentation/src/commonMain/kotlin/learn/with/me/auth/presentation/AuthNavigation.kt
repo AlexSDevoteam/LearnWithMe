@@ -32,7 +32,7 @@ fun AuthNavigation(
                 }
             }
         },
-        AuthRoute.Auth.Register
+        AuthRoute.Auth.Login
     )
     NavDisplay(
         modifier = modifier,
@@ -54,7 +54,8 @@ fun AuthNavigation(
             entry<AuthRoute.Auth.Register> {
                 RegisterScreen(
                     modifier = modifier,
-                    onRegister = {
+                    onLogin = {
+                        authBackStack.remove(AuthRoute.Auth.Register)
                         authBackStack.add(AuthRoute.Auth.Login)
                     }
                 )
