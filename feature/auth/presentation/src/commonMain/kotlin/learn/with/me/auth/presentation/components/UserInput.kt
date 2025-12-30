@@ -18,13 +18,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import learn.with.me.Resources
 import learn.with.me.auth.presentation.SharedAuthViewModel
-import learnwithme.feature.auth.presentation.generated.resources.Res
-import learnwithme.feature.auth.presentation.generated.resources.computer_image
-import learnwithme.feature.auth.presentation.generated.resources.email
-import learnwithme.feature.auth.presentation.generated.resources.logo
-import learnwithme.feature.auth.presentation.generated.resources.password
-import learnwithme.feature.auth.presentation.generated.resources.password_error
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -40,8 +35,8 @@ fun UserInput(
     val isPasswordInvalid = !sharedAuthViewModel.isPasswordValid() && password.isNotEmpty()
 
     Image(
-        painter = painterResource(Res.drawable.computer_image),
-        contentDescription = stringResource(Res.string.logo),
+        painter = painterResource(Resources.Drawable.computer_image),
+        contentDescription = stringResource(Resources.String.logo),
         modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(size = 24.dp)),
     )
     Spacer(modifier = Modifier.height(32.dp))
@@ -49,7 +44,7 @@ fun UserInput(
         value = email,
         onValueChange = sharedAuthViewModel::onEmailTextChange,
         singleLine = true,
-        label = { Text(stringResource(Res.string.email)) },
+        label = { Text(stringResource(Resources.String.email)) },
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         isError = !sharedAuthViewModel.isEmailValid() && email.isNotEmpty()
@@ -59,14 +54,14 @@ fun UserInput(
         value = password,
         onValueChange = sharedAuthViewModel::onPasswordTextChange,
         singleLine = true,
-        label = { Text(stringResource(Res.string.password)) },
+        label = { Text(stringResource(Resources.String.password)) },
         modifier = Modifier.fillMaxWidth(),
         visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         isError = isPasswordInvalid,
         supportingText = {
             if (isPasswordInvalid) {
-                Text(text = stringResource(Res.string.password_error))
+                Text(text = stringResource(Resources.String.password_error))
             }
         }
     )

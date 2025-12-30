@@ -13,11 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import learn.with.me.Resources
 import learn.with.me.auth.presentation.AuthRoute
-import learnwithme.feature.auth.presentation.generated.resources.Res
-import learnwithme.feature.auth.presentation.generated.resources.app_name
-import learnwithme.feature.auth.presentation.generated.resources.back
-import learnwithme.feature.auth.presentation.generated.resources.arrow_back_24
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -30,7 +27,7 @@ fun AuthTopAppBar(
         modifier = modifier,
         title = {
             Text(
-                text = stringResource(Res.string.app_name) + "!",
+                text = stringResource(Resources.String.app_name) + "!",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -43,8 +40,8 @@ fun AuthTopAppBar(
                     },
                     content = {
                         Icon(
-                            painter = painterResource(Res.drawable.arrow_back_24),
-                            contentDescription = stringResource(Res.string.back)
+                            painter = painterResource(Resources.Drawable.arrow_back_24),
+                            contentDescription = stringResource(Resources.String.back)
                         )
                     }
                 )

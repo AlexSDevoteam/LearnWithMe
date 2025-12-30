@@ -24,7 +24,9 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
+import learn.with.me.Resources
 import learn.with.me.SERVER_PORT
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LessonNavigation(modifier: Modifier = Modifier) {
@@ -73,7 +75,7 @@ fun LessonNavigation(modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.Center
                 ) {
                     Column {
-                        Text("Lesson Favorites Screen")
+                        Text(stringResource(Resources.String.favorite_lessons))
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
                             onClick = { lessonBackStack.add(LessonRoute.Lesson.Detail("123")) }

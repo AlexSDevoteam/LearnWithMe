@@ -5,10 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import learn.with.me.Resources
 import learn.with.me.auth.presentation.SharedAuthViewModel
 import learn.with.me.auth.presentation.components.UserInput
-import learnwithme.feature.auth.presentation.generated.resources.Res
-import learnwithme.feature.auth.presentation.generated.resources.register
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -24,7 +23,7 @@ fun RegisterScreen(
     ) {
         UserInput(
             onClick = onRegisterClick,
-            buttonText = stringResource(Res.string.register),
+            buttonText = stringResource(Resources.String.register),
             sharedAuthViewModel = sharedAuthViewModel
         )
     }

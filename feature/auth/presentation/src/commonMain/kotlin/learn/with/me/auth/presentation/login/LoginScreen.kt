@@ -16,12 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import learn.with.me.Resources
 import learn.with.me.auth.presentation.SharedAuthViewModel
 import learn.with.me.auth.presentation.components.UserInput
-import learnwithme.feature.auth.presentation.generated.resources.Res
-import learnwithme.feature.auth.presentation.generated.resources.do_not_have_account
-import learnwithme.feature.auth.presentation.generated.resources.login
-import learnwithme.feature.auth.presentation.generated.resources.register
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -38,7 +35,7 @@ fun LoginScreen(
     ) {
         UserInput(
             onClick = onLoginClick,
-            buttonText = stringResource(Res.string.login),
+            buttonText = stringResource(Resources.String.login),
             sharedAuthViewModel = sharedAuthViewModel
         )
         Spacer(modifier = Modifier.height(32.dp))
@@ -46,10 +43,10 @@ fun LoginScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = stringResource(Res.string.do_not_have_account))
+            Text(text = stringResource(Resources.String.do_not_have_account))
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = stringResource(Res.string.register),
+                text = stringResource(Resources.String.register),
                 textDecoration = TextDecoration.Underline,
                 color = Color.Blue,
                 modifier = Modifier.clickable {
