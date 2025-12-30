@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
-    onRegister: () -> Unit
+    onLogin: () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -26,7 +26,7 @@ fun RegisterScreen(
             Text("Register Navigation Screen")
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = onRegister
+                onClick = onLogin
             ) {
                 Text("Login Screen")
             }
