@@ -45,7 +45,7 @@ fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
             entry<Route.Auth> {
                 AuthNavigation(
                     onLogin = {
-                        rootBackStack.remove(Route.Auth)
+                        rootBackStack.clear()
                         rootBackStack.add(Route.Home)
                     }
                 )
@@ -53,7 +53,7 @@ fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
             entry<Route.Home> {
                 HomeNavigationRoot(
                     onLogout = {
-                        rootBackStack.remove(Route.Home)
+                        rootBackStack.clear()
                         rootBackStack.add(Route.Auth)
                     }
                 )

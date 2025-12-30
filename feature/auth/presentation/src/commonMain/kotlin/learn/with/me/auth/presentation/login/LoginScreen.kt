@@ -1,90 +1,55 @@
 package learn.with.me.auth.presentation.login
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import learn.with.me.auth.presentation.SharedAuthViewModel
+import learn.with.me.auth.presentation.components.UserInput
 import learnwithme.feature.auth.presentation.generated.resources.Res
-import learnwithme.feature.auth.presentation.generated.resources.computer_logo
-import org.jetbrains.compose.resources.painterResource
+import learnwithme.feature.auth.presentation.generated.resources.do_not_have_account
+import learnwithme.feature.auth.presentation.generated.resources.login
+import learnwithme.feature.auth.presentation.generated.resources.register
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoginScreen(
+    modifier: Modifier = Modifier,
+    sharedAuthViewModel: SharedAuthViewModel,
     onLoginClick: (String, String) -> Unit,
-    onRegisterClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onRegisterClick: () -> Unit
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier = modifier.verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            painter = painterResource(Res.drawable.computer_logo),
-            contentDescription = "Logo",
-            modifier = Modifier.fillMaxWidth(),
+        UserInput(
+            onClick = onLoginClick,
+            buttonText = stringResource(Res.string.login),
+            sharedAuthViewModel = sharedAuthViewModel
         )
-        Spacer(modifier = Modifier.height(32.dp))
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth(),
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        )
-        Spacer(modifier = Modifier.height(32.dp))
-        Button(
-            onClick = { onLoginClick(email, password) },
-            modifier = Modifier.fillMaxWidth(0.5f)
-        ) {
-            Text("Login")
-        }
         Spacer(modifier = Modifier.height(32.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text("Don't have an account?")
+            Text(text = stringResource(Res.string.do_not_have_account))
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Register",
+                text = stringResource(Res.string.register),
                 textDecoration = TextDecoration.Underline,
                 color = Color.Blue,
                 modifier = Modifier.clickable {
