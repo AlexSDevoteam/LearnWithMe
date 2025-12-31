@@ -18,12 +18,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
+import learn.with.me.Resources
 import learn.with.me.lesson.presentation.navigation.LessonNavigation
 import learn.with.me.lesson.presentation.navigation.LessonRoute
 import learn.with.me.navigation.navbar.HomeNavigationBar
 import learn.with.me.navigation.navbar.TOP_LEVEL_DESTINATIONS
 import learn.with.me.settings.presentation.SettingsScreen
 import learn.with.me.settings.presentation.navigation.SettingsRoute
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HomeNavigationRoot(
@@ -74,7 +76,7 @@ fun HomeNavigationRoot(
                             Column {
                                 Text("Lesson List Screen")
                                 Button(onLogout) {
-                                    Text("Logout")
+                                    Text(stringResource(Resources.String.logout))
                                 }
                             }
                         }
