@@ -36,7 +36,8 @@ fun LoginScreen(
         UserInput(
             onClick = onLoginClick,
             buttonText = stringResource(Resources.String.login),
-            sharedAuthViewModel = sharedAuthViewModel
+            sharedAuthViewModel = sharedAuthViewModel,
+            canSubmit = sharedAuthViewModel::canLogin
         )
         Spacer(modifier = Modifier.height(32.dp))
         Row(

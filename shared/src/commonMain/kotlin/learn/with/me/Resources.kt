@@ -5,6 +5,8 @@ import learnwithme.shared.generated.resources.app_name
 import learnwithme.shared.generated.resources.arrow_back_24
 import learnwithme.shared.generated.resources.back
 import learnwithme.shared.generated.resources.computer_image
+import learnwithme.shared.generated.resources.confirm_password
+import learnwithme.shared.generated.resources.confirm_password_error
 import learnwithme.shared.generated.resources.do_not_have_account
 import learnwithme.shared.generated.resources.email
 import learnwithme.shared.generated.resources.favorite_lessons
@@ -32,6 +34,8 @@ object Resources {
         val logo = Res.string.logo
         val email = Res.string.email
         val password = Res.string.password
+        val confirm_password = Res.string.confirm_password
+        val confirm_password_error = Res.string.confirm_password_error
         val favorite_lessons = Res.string.favorite_lessons
         val password_error = Res.string.password_error
     }

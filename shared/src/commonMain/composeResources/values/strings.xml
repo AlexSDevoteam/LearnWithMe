@@ -8,9 +8,11 @@
     <string name="logo">Logo</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
     <string name="lessons">Lessons</string>
     <string name="favorites">Favorites</string>
     <string name="settings">Settings</string>
     <string name="favorite_lessons">Favorite Lessons</string>
     <string name="password_error">Password must have at least 8 characters with one lowercase letter, uppercase letter, digit, and one special character </string>
+    <string name="confirm_password_error">The passwords do not match </string>
 </resources>

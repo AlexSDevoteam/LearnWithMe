@@ -43,8 +43,15 @@ class SharedAuthViewModel : ViewModel() {
         return _password.value.matches(passwordRegex)
     }
 
+    fun isConfirmPasswordValid(confirmPassword: String): Boolean {
+        return isPasswordValid() && _password.value == confirmPassword
+    }
 
     fun canLogin(): Boolean {
         return isEmailValid() && isPasswordValid()
+    }
+
+    fun canRegister(confirmPassword: String): Boolean {
+        return canLogin() && isConfirmPasswordValid(confirmPassword)
     }
 }

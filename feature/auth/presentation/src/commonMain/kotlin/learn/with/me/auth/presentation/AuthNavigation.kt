@@ -5,7 +5,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -46,11 +45,12 @@ fun AuthNavigation(
     val sharedAuthViewModel = SharedAuthViewModel()
 
     Scaffold(
+        modifier = modifier.imePadding(),
         topBar = {
             AuthTopAppBar(authBackStack = authBackStack)
-        }) { paddingValues ->
+        }) { _ ->
         NavDisplay(
-            modifier = modifier.imePadding(),
+            modifier = modifier.fillMaxSize(),
             backStack = authBackStack,
             transitionSpec = {
                 fadeIn(animationSpec = tween(durationMillis = 500)) togetherWith fadeOut(
@@ -61,12 +61,13 @@ fun AuthNavigation(
             }, entryDecorators = listOf(
                 rememberSaveableStateHolderNavEntryDecorator(),
             ), entryProvider = entryProvider {
+                val screenContentModifier = modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+
                 entry<AuthRoute.Auth.Login> {
                     LoginScreen(
-                        modifier = modifier
-                            .fillMaxSize()
-                            .padding(16.dp)
-                            .consumeWindowInsets(paddingValues),
+                        modifier = screenContentModifier,
                         sharedAuthViewModel = sharedAuthViewModel,
                         onLoginClick = { _, _ ->
                             onLogin()
@@ -77,10 +78,7 @@ fun AuthNavigation(
                 }
                 entry<AuthRoute.Auth.Register> {
                     RegisterScreen(
-                        modifier = modifier
-                            .fillMaxSize()
-                            .padding(16.dp)
-                            .consumeWindowInsets(paddingValues),
+                        modifier = screenContentModifier,
                         sharedAuthViewModel = sharedAuthViewModel,
                         onRegisterClick = { _, _ ->
                             onLogin()
