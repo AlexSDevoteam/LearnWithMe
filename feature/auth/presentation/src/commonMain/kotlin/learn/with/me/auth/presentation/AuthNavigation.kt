@@ -24,6 +24,7 @@ import kotlinx.serialization.modules.polymorphic
 import learn.with.me.auth.presentation.components.AuthTopAppBar
 import learn.with.me.auth.presentation.login.LoginScreen
 import learn.with.me.auth.presentation.register.RegisterScreen
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +43,7 @@ fun AuthNavigation(
         }, AuthRoute.Auth.Login
     )
 
-    val sharedAuthViewModel = SharedAuthViewModel()
+    val sharedAuthViewModel = koinViewModel<SharedAuthViewModel>()
 
     Scaffold(
         modifier = modifier.imePadding(),

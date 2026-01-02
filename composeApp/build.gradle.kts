@@ -45,6 +45,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -64,6 +66,7 @@ kotlin {
             implementation(projects.feature.auth.presentation)
             implementation(projects.feature.lesson.presentation)
             implementation(projects.feature.settings.presentation)
+            implementation(projects.di)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
