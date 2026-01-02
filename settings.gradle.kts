@@ -29,6 +29,7 @@ dependencyResolutionManagement {
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name= "LearnWithMe"
+include(":di")
 include(":feature:auth:data")
 include(":feature:auth:domain")
 include(":feature:auth:presentation")

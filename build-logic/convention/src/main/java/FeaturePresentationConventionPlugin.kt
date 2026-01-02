@@ -22,6 +22,7 @@ class FeaturePresentationConventionPlugin : Plugin<Project> {
                 implementation(compose.dependencies.components.resources)
                 implementation(libs.findLibrary("jetbrains-lifecycle-viewmodel-nav3").get())
                 implementation(libs.findLibrary("jetbrains-navigation3-ui").get())
+                implementation(libs.findLibrary("koin-compose-viewmodel").get())
             }
         }
     }

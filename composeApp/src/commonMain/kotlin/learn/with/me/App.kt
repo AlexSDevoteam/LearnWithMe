@@ -10,6 +10,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
+    // TODO changed this to firebase auth
     val isLoggedIn = false
 
     MaterialTheme {
