@@ -1,5 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -26,19 +25,6 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
         }
-    }
-
-    jvm()
-
-    js {
-        browser()
-        binaries.executable()
-    }
-
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-        binaries.executable()
     }
 
     sourceSets {
@@ -70,10 +56,6 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutinesSwing)
         }
     }
 }
