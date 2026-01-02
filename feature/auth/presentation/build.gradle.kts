@@ -26,7 +26,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.auth.domain)
-            implementation(compose.components.resources)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

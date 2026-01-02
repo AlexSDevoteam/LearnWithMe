@@ -19,6 +19,7 @@ class FeaturePresentationConventionPlugin : Plugin<Project> {
 
             kotlin.sourceSets.getByName("commonMain").dependencies {
                 implementation(compose.dependencies.material3)
+                implementation(compose.dependencies.components.resources)
                 implementation(libs.findLibrary("jetbrains-lifecycle-viewmodel-nav3").get())
                 implementation(libs.findLibrary("jetbrains-navigation3-ui").get())
             }

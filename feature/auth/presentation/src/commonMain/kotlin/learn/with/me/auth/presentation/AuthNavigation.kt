@@ -5,17 +5,14 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -24,6 +21,7 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
+import learn.with.me.auth.presentation.components.AuthTopAppBar
 import learn.with.me.auth.presentation.login.LoginScreen
 import learn.with.me.auth.presentation.register.RegisterScreen
 
@@ -44,23 +42,15 @@ fun AuthNavigation(
         }, AuthRoute.Auth.Login
     )
 
+    val sharedAuthViewModel = SharedAuthViewModel()
+
     Scaffold(
+        modifier = modifier.imePadding(),
         topBar = {
-            TopAppBar(title = {
-                Box(
-                    modifier = modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "Learn with me!",
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            })
-        }) {
+            AuthTopAppBar(authBackStack = authBackStack)
+        }) { _ ->
         NavDisplay(
-            modifier = modifier,
+            modifier = modifier.fillMaxSize(),
             backStack = authBackStack,
             transitionSpec = {
                 fadeIn(animationSpec = tween(durationMillis = 500)) togetherWith fadeOut(
@@ -71,23 +61,27 @@ fun AuthNavigation(
             }, entryDecorators = listOf(
                 rememberSaveableStateHolderNavEntryDecorator(),
             ), entryProvider = entryProvider {
-                entry<AuthRoute.Auth.Login> {
+                val screenContentModifier = modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
 
+                entry<AuthRoute.Auth.Login> {
                     LoginScreen(
-                        modifier = modifier,
+                        modifier = screenContentModifier,
+                        sharedAuthViewModel = sharedAuthViewModel,
                         onLoginClick = { _, _ ->
                             onLogin()
-                        }, onRegisterClick = {
-                            authBackStack.remove(AuthRoute.Auth.Login)
+                        },
+                        onRegisterClick = {
                             authBackStack.add(AuthRoute.Auth.Register)
                         })
                 }
                 entry<AuthRoute.Auth.Register> {
                     RegisterScreen(
-                        modifier = modifier,
-                        onLogin = {
-                            authBackStack.remove(AuthRoute.Auth.Register)
-                            authBackStack.add(AuthRoute.Auth.Login)
+                        modifier = screenContentModifier,
+                        sharedAuthViewModel = sharedAuthViewModel,
+                        onRegisterClick = { _, _ ->
+                            onLogin()
                         })
                 }
             })

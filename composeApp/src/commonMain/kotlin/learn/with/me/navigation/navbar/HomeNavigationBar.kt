@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavKey
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HomeNavigationBar(
@@ -25,11 +26,11 @@ fun HomeNavigationBar(
                 icon = {
                     Icon(
                         painter = painterResource(data.icon),
-                        contentDescription = data.title
+                        contentDescription = stringResource(data.title)
                     )
                 },
                 label = {
-                    Text(data.title)
+                    Text(stringResource(data.title))
                 }
             )
         }
