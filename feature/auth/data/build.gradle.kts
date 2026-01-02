@@ -13,6 +13,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.firebase.auth)
+
+            implementation(projects.feature.auth.domain)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
