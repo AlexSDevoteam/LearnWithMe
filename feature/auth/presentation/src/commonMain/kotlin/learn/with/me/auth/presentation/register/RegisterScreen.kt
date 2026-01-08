@@ -9,13 +9,11 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import learn.with.me.Resources
 import learn.with.me.auth.presentation.SharedAuthViewModel
 import learn.with.me.auth.presentation.components.UserInput
@@ -25,34 +23,43 @@ import org.jetbrains.compose.resources.stringResource
 fun RegisterScreen(
     modifier: Modifier = Modifier,
     sharedAuthViewModel: SharedAuthViewModel,
+    registerViewModel: RegisterViewModel,
     onRegisterClick: (String, String) -> Unit
 ) {
-    var confirmPassword by remember { mutableStateOf("") }
-    val isConfirmPasswordInvalid =
-        confirmPassword.isNotEmpty() && !sharedAuthViewModel.isConfirmPasswordValid(confirmPassword)
+    val password by sharedAuthViewModel.password.collectAsStateWithLifecycle()
+    val confirmPassword by registerViewModel.confirmPassword.collectAsStateWithLifecycle()
+
+    val confirmPasswordValid = registerViewModel.isConfirmPasswordValid(password)
+    val isError = confirmPassword.isNotEmpty() && !confirmPasswordValid
 
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
         UserInput(
-            onClick = onRegisterClick,
+            onClick = { email, password ->
+                registerViewModel.register(email, password)
+                // TODO Only when result is success
+                onRegisterClick(email, password)
+
+            },
             buttonText = stringResource(Resources.String.register),
             sharedAuthViewModel = sharedAuthViewModel,
-            canSubmit = { sharedAuthViewModel.canRegister(confirmPassword) },
+            canSubmit = { sharedAuthViewModel.areCredentialsValid() && confirmPasswordValid },
             optionalContent = { outlinedTextFieldModifier ->
                 OutlinedTextField(
                     value = confirmPassword,
-                    onValueChange = { confirmPassword = it },
+                    onValueChange = registerViewModel::onConfirmPasswordTextChange,
                     singleLine = true,
                     modifier = outlinedTextFieldModifier,
                     label = { Text(stringResource(Resources.String.confirm_password)) },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    isError = isConfirmPasswordInvalid,
+                    isError = isError,
                     supportingText = {
-                        if (isConfirmPasswordInvalid) {
+                        if (isError) {
                             Text(text = stringResource(Resources.String.confirm_password_error))
                         }
                     }

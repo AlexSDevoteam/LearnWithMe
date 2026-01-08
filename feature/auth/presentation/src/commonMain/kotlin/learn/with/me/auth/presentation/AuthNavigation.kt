@@ -23,13 +23,16 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import learn.with.me.auth.presentation.components.AuthTopAppBar
 import learn.with.me.auth.presentation.login.LoginScreen
+import learn.with.me.auth.presentation.login.LoginViewModel
 import learn.with.me.auth.presentation.register.RegisterScreen
+import learn.with.me.auth.presentation.register.RegisterViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthNavigation(
     modifier: Modifier = Modifier,
+    sharedAuthViewModel: SharedAuthViewModel,
     onLogin: () -> Unit,
 ) {
     val authBackStack = rememberNavBackStack(
@@ -42,8 +45,8 @@ fun AuthNavigation(
             }
         }, AuthRoute.Auth.Login
     )
-
-    val sharedAuthViewModel = koinViewModel<SharedAuthViewModel>()
+    val registerViewModel = koinViewModel<RegisterViewModel>()
+    val loginViewModel = koinViewModel<LoginViewModel>()
 
     Scaffold(
         modifier = modifier.imePadding(),
@@ -70,6 +73,7 @@ fun AuthNavigation(
                     LoginScreen(
                         modifier = screenContentModifier,
                         sharedAuthViewModel = sharedAuthViewModel,
+                        loginViewModel = loginViewModel,
                         onLoginClick = { _, _ ->
                             onLogin()
                         },
@@ -81,6 +85,7 @@ fun AuthNavigation(
                     RegisterScreen(
                         modifier = screenContentModifier,
                         sharedAuthViewModel = sharedAuthViewModel,
+                        registerViewModel = registerViewModel,
                         onRegisterClick = { _, _ ->
                             onLogin()
                         })

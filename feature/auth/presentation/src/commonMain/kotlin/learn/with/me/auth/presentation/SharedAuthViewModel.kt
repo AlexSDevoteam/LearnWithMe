@@ -1,11 +1,16 @@
 package learn.with.me.auth.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import learn.with.me.Constants.Auth.EMAIL_REGEX
+import learn.with.me.Constants.Auth.PASSWORD_REGEX
+import learn.with.me.auth.domain.auth.AuthRepository
 
-class SharedAuthViewModel : ViewModel() {
+class SharedAuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _email: MutableStateFlow<String> = MutableStateFlow("")
     val email: StateFlow<String> = _email.asStateFlow()
 
@@ -21,37 +26,21 @@ class SharedAuthViewModel : ViewModel() {
     }
 
     fun isEmailValid(): Boolean {
-        val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+\\.[A-Za-z0-9.-]+\$"
-
-        return _email.value.matches(emailRegex.toRegex())
+        return _email.value.matches(EMAIL_REGEX.toRegex())
     }
 
-    /**
-     * - `^`                        - Start of values anchor.
-     * - `(?=.*[a-z])`              - Ensure at least one lowercase letter.
-     * - `(?=.*[A-Z])`              - Ensure at least one uppercase letter.
-     * - `(?=.*\\d)`                - Ensure at least one digit.
-     * - `(?=.*[@$!%*?&])`          - Ensure at least one special character from the specified set.
-     * - `[A-Za-z\\d@$!%*?&]{8,}`   - The password must contain 8 or more characters from the allowed set.
-     * - `$                         - End of values anchor.
-     */
     fun isPasswordValid(): Boolean {
-        val passwordRegex = Regex(
-            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}\$"
-        )
-
-        return _password.value.matches(passwordRegex)
+        return _password.value.matches(PASSWORD_REGEX.toRegex())
     }
 
-    fun isConfirmPasswordValid(confirmPassword: String): Boolean {
-        return isPasswordValid() && _password.value == confirmPassword
-    }
-
-    fun canLogin(): Boolean {
+    fun areCredentialsValid(): Boolean {
         return isEmailValid() && isPasswordValid()
     }
 
-    fun canRegister(confirmPassword: String): Boolean {
-        return canLogin() && isConfirmPasswordValid(confirmPassword)
+    fun logout() {
+        viewModelScope.launch {
+            authRepository.signOut()
+        }
     }
+
 }

@@ -16,6 +16,8 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import learn.with.me.auth.presentation.AuthNavigation
+import learn.with.me.auth.presentation.SharedAuthViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
@@ -30,6 +32,8 @@ fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
         },
         startDestination
     )
+    val sharedAuthViewModel = koinViewModel<SharedAuthViewModel>()
+
     NavDisplay(
         modifier = modifier,
         backStack = rootBackStack,
@@ -44,6 +48,7 @@ fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
         entryProvider = entryProvider {
             entry<Route.Auth> {
                 AuthNavigation(
+                    sharedAuthViewModel = sharedAuthViewModel,
                     onLogin = {
                         rootBackStack.clear()
                         rootBackStack.add(Route.Home)
@@ -53,6 +58,8 @@ fun NavigationRoot(modifier: Modifier = Modifier, startDestination: NavKey) {
             entry<Route.Home> {
                 HomeNavigationRoot(
                     onLogout = {
+                        sharedAuthViewModel.logout()
+                        // TODO only when result is success
                         rootBackStack.clear()
                         rootBackStack.add(Route.Auth)
                     }
