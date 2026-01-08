@@ -43,7 +43,7 @@ fun UserInput(
     val email by sharedAuthViewModel.email.collectAsStateWithLifecycle()
     val password by sharedAuthViewModel.password.collectAsStateWithLifecycle()
 
-    val isPasswordInvalid = !sharedAuthViewModel.isPasswordValid() && password.isNotEmpty()
+    val isPasswordInvalid = password.isNotEmpty() && !sharedAuthViewModel.isPasswordValid()
 
     val bringIntoViewRequester = remember { BringIntoViewRequester() }
     val coroutineScope = rememberCoroutineScope()

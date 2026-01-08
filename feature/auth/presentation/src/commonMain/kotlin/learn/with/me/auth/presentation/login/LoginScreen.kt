@@ -25,6 +25,7 @@ import org.jetbrains.compose.resources.stringResource
 fun LoginScreen(
     modifier: Modifier = Modifier,
     sharedAuthViewModel: SharedAuthViewModel,
+    loginViewModel: LoginViewModel,
     onLoginClick: (String, String) -> Unit,
     onRegisterClick: () -> Unit
 ) {
@@ -34,10 +35,14 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         UserInput(
-            onClick = onLoginClick,
+            onClick = { email, password ->
+                loginViewModel.login(email, password)
+                // TODO Only when result is success
+                onLoginClick(email, password)
+            },
             buttonText = stringResource(Resources.String.login),
             sharedAuthViewModel = sharedAuthViewModel,
-            canSubmit = sharedAuthViewModel::canLogin
+            canSubmit = sharedAuthViewModel::areCredentialsValid
         )
         Spacer(modifier = Modifier.height(32.dp))
         Row(

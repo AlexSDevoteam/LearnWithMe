@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.google.services)
 }
 
 kotlin {
@@ -48,8 +49,15 @@ kotlin {
             implementation(libs.jetbrains.lifecycle.viewmodel.nav3)
             implementation(libs.jetbrains.navigation3.ui)
 
+            //Koin
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+
+            implementation(libs.firebase.auth)
+
             implementation(projects.shared)
             implementation(projects.feature.auth.presentation)
+            implementation(projects.feature.auth.domain)
             implementation(projects.feature.lesson.presentation)
             implementation(projects.feature.settings.presentation)
             implementation(projects.di)

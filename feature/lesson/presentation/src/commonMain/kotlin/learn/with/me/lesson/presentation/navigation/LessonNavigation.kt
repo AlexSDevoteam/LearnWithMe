@@ -25,7 +25,6 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import learn.with.me.Resources
-import learn.with.me.SERVER_PORT
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -65,7 +64,7 @@ fun LessonNavigation(modifier: Modifier = Modifier) {
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Lesson Detail Screen ${it.lessonId} $SERVER_PORT")
+                    Text("Lesson Detail Screen ${it.lessonId}")
                 }
             }
             entry<LessonRoute.Lesson.Favorites> {
