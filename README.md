@@ -34,6 +34,7 @@ in your IDE’s toolbar or build it directly from the terminal:
   ```shell
   .\gradlew.bat :composeApp:assembleDebug
   ```
+- You also need to add your google.services.json in composeApp module root directory
 
 ### Build and Run Server
 
