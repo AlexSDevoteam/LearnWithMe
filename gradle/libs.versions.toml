@@ -66,6 +66,10 @@ koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", ver
 firebase-auth-android = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebase" }
 
+#backend
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
+koin-logger-slf4j = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

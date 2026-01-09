@@ -3,10 +3,9 @@ package learn.with.me
 import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import io.ktor.server.response.respondText
-import io.ktor.server.routing.get
-import io.ktor.server.routing.routing
 import learn.with.me.Constants.SERVER_PORT
+import learn.with.me.plugins.configureKoin
+import learn.with.me.plugins.configureRouting
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
@@ -14,9 +13,6 @@ fun main() {
 }
 
 fun Application.module() {
-    routing {
-        get("/") {
-            call.respondText("Welcome to Learn with me backend!")
-        }
-    }
+    configureKoin()
+    configureRouting()
 }
