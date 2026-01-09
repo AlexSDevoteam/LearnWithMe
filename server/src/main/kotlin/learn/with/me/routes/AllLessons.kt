@@ -12,14 +12,7 @@ fun Route.getAllLessons() {
     val lessonRepository: LessonRepository by application.inject()
 
     get("/lessons") {
-        try {
-            val response = lessonRepository.getAllLessons()
-            call.respond(message = response, status = HttpStatusCode.OK)
-        } catch (e: Exception) {
-            call.respond(
-                message = e.message.toString(),
-                status = HttpStatusCode.NotFound
-            )
-        }
+        val response = lessonRepository.getAllLessons()
+        call.respond(message = response, status = HttpStatusCode.OK)
     }
 }

@@ -1,11 +1,12 @@
 package learn.with.me.repository
 
-import learn.with.me.model.Answer
-import learn.with.me.model.Lesson
-import learn.with.me.model.Question
+import learn.with.me.model.ApiResponse
 
 interface LessonRepository {
-    suspend fun getQuestions(lessonId: Int): List<Question>
-    suspend fun getAnswers(questionId: Int): List<Answer>
-    suspend fun getAllLessons(): List<Lesson>
+    //    suspend fun getQuestions(lessonId: Int): ApiResponse<Question>
+//    suspend fun getAnswers(questionId: Int): ApiResponse<Answer>
+//    suspend fun getAllLessons(): ApiResponse<Lesson>
+    suspend fun getQuestions(lessonId: Int): ApiResponse
+    suspend fun getAnswers(questionId: Int): ApiResponse
+    suspend fun getAllLessons(): ApiResponse
 }

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
+    alias(libs.plugins.serialization)
     application
 }
 
@@ -24,4 +25,9 @@ dependencies {
     //Koin
     implementation(libs.koin.ktor)
     implementation(libs.koin.logger.slf4j)
+
+    //Serialization
+    implementation(libs.ktor.serialization)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.server.content.negotiation)
 }
