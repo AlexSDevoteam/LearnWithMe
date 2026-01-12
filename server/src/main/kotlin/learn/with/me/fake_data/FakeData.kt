@@ -46,14 +46,14 @@ object FakeData {
         Question(
             id = 1,
             text = "What is the capital of France?",
-            answers = answers,
+            answers = answers.filter { it.questionId.contains(1) },
             correctAnswerId = 1,
             moduleId = listOf(1)
         ),
         Question(
             id = 2,
             text = "What is the capital of Spain?",
-            answers = answers,
+            answers = answers.filter { it.questionId.contains(2) },
             correctAnswerId = 4,
             moduleId = listOf(1)
         )
