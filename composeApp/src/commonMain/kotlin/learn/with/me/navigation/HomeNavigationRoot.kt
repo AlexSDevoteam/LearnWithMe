@@ -34,7 +34,7 @@ fun HomeNavigationRoot(
 ) {
     val navigationState = rememberNavigationState(
         startRoute = LessonRoute.Lesson.List,
-        topLevelRoutes = TOP_LEVEL_DESTINATIONS.keys
+        topLevelRoutes = TOP_LEVEL_DESTINATIONS.keys as Set<Route> // this cast is needed for the app to run on IOS
     )
     val navigator = remember {
         Navigator(navigationState)

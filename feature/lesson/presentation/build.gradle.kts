@@ -8,6 +8,7 @@ kotlin {
     androidLibrary {
         namespace = "learn.with.me.lesson.presentation"
     }
+    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
