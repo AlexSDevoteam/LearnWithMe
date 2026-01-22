@@ -22,7 +22,7 @@ fun HomeNavigationBar(
         TOP_LEVEL_DESTINATIONS.forEach { (topLevelDestination, data) ->
             NavigationBarItem(
                 selected = selectedKey == topLevelDestination,
-                onClick = { onSelectKey(topLevelDestination) },
+                onClick = { onSelectKey(topLevelDestination as NavKey) }, // this cast is needed for the app to run on IOS
                 icon = {
                     Icon(
                         painter = painterResource(data.icon),
