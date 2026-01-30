@@ -84,7 +84,6 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
@@ -100,5 +99,6 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 
 # Plugins defined by this project
 learn-with-me-library = { id = "learn.with.me.library" }
+learn-with-me-lib-compose = { id = "learn.with.me.lib.compose" }
 learn-with-me-feature = { id = "learn.with.me.feature" }
-learn-with-me-feature-presentation = { id = "learn.with.me.feature.presentation" }
+learn-with-me-feat-presentation = { id = "learn.with.me.feat.presentation" }

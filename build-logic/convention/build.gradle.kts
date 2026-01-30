@@ -29,12 +29,16 @@ gradlePlugin {
             id = libs.plugins.learn.with.me.library.get().pluginId
             implementationClass = "LibraryConventionPlugin"
         }
+        register("libraryCompose") {
+            id = libs.plugins.learn.with.me.lib.compose.get().pluginId
+            implementationClass = "LibraryComposeConventionPlugin"
+        }
         register("feature") {
-            id = "learn.with.me.feature"
+            id = libs.plugins.learn.with.me.feature.get().pluginId
             implementationClass = "FeatureConventionPlugin"
         }
         register("featurePresentation") {
-            id = libs.plugins.learn.with.me.feature.presentation.get().pluginId
+            id = libs.plugins.learn.with.me.feat.presentation.get().pluginId
             implementationClass = "FeaturePresentationConventionPlugin"
         }
     }

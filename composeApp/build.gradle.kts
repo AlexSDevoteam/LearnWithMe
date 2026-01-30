@@ -1,9 +1,6 @@
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.learn.with.me.lib.compose)
     alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.kmpLibrary)
     alias(libs.plugins.serialization)
 }
 

@@ -1,6 +1,6 @@
 
 plugins {
-    alias(libs.plugins.learn.with.me.feature.presentation)
+    alias(libs.plugins.learn.with.me.feat.presentation)
 }
 
 kotlin {
