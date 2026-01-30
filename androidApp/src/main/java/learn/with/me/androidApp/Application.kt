@@ -1,13 +1,12 @@
-package learn.with.me
+package learn.with.me.androidApp
 
-import android.app.Application
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.initialize
+import com.google.firebase.Firebase
+import com.google.firebase.initialize
 import learn.with.me.di.initializeKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 
-class Application : Application() {
+class Application : android.app.Application() {
     override fun onCreate() {
         super.onCreate()
         initializeKoin {

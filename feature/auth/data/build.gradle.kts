@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 
 plugins {
     alias(libs.plugins.learn.with.me.feature)
@@ -7,6 +6,8 @@ plugins {
 kotlin {
     androidLibrary {
         namespace = "learn.with.me.auth.data"
+        compileSdk = libs.versions.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
     iosX64()
     iosArm64()
