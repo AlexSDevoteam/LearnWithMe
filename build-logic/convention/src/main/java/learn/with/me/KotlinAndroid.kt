@@ -16,11 +16,9 @@
 
 package learn.with.me
 
-import com.android.build.api.dsl.androidLibrary
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 internal fun Project.configureKotlin() = configure<KotlinMultiplatformExtension> {
@@ -31,29 +29,8 @@ internal fun Project.configureKotlin() = configure<KotlinMultiplatformExtension>
     }.orElse(false)
 
     compilerOptions.apply {
-        androidLibrary {
-            compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
-            androidResources {
-                enable = true
-            }
-            compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_21)
-            }
-            /* TODO configure the flavors for free and paid app
-            localDependencySelection {
-                // For dependencies with multiple build types, select 'debug' first, and 'release' in case 'debug' is missing
-                selectBuildTypeFrom.set(listOf("debug", "release"))
-
-                // For dependencies with a 'type' flavor dimension...
-                productFlavorDimension("type") {
-                    // Flavors
-                }
-            }*/
-        }
-
         allWarningsAsErrors = warningsAsErrors
         freeCompilerArgs.add(
-            // Enable experimental coroutines APIs, including Flow
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         )
     }

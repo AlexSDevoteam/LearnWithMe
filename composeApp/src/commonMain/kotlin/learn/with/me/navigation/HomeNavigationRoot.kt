@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package learn.with.me.navigation
 
 import androidx.compose.animation.core.tween

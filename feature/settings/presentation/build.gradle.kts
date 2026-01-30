@@ -1,11 +1,12 @@
-import com.android.build.api.dsl.androidLibrary
 
 plugins {
-    alias(libs.plugins.learn.with.me.feature.presentation)
+    alias(libs.plugins.learn.with.me.feat.presentation)
 }
 
 kotlin {
     androidLibrary {
+        compileSdk = libs.versions.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
         namespace = "learn.with.me.settings.presentation"
     }
     iosX64()
