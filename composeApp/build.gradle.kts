@@ -6,20 +6,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        compileSdk = libs.versions.compileSdk.get().toInt()
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        namespace = "learn.with.me.composeapp"
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
-    }
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
     }
 
     sourceSets {

@@ -16,17 +16,36 @@
 
 package learn.with.me
 
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-internal fun Project.configureKotlin() = configure<KotlinMultiplatformExtension> {
+internal fun Project.configureKotlinMultiplatform() = configure<KotlinMultiplatformExtension> {
     // Treat all Kotlin warnings as errors (disabled by default)
     // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
     val warningsAsErrors = providers.gradleProperty("warningsAsErrors").map {
         it.toBoolean()
     }.orElse(false)
+
+    configure<KotlinMultiplatformAndroidLibraryExtension> {
+        compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
+        minSdk = libs.findVersion("android.minSdk").get().toString().toInt()
+        namespace = pathToPackageName()
+        // experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
+    }
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = this@configureKotlinMultiplatform.pathToFrameworkName()
+            isStatic = true
+        }
+    }
 
     compilerOptions.apply {
         allWarningsAsErrors = warningsAsErrors

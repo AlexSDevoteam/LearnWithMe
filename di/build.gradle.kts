@@ -1,22 +1,8 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.learn.with.me.library)
 }
 
 kotlin {
-    androidLibrary {
-        namespace = "learn.with.me.di"
-        compileSdk = libs.versions.compileSdk.get().toInt()
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_21)
-        }
-    }
-
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
     sourceSets {
         commonMain.dependencies {
             implementation(libs.koin.core)

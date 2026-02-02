@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-import learn.with.me.configureKotlin
+import learn.with.me.configureKotlinMultiplatform
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.internal.Actions.with
@@ -26,7 +26,7 @@ class LibraryConventionPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.multiplatform")
             apply(plugin = "com.android.kotlin.multiplatform.library")
 
-            configureKotlin()
+            configureKotlinMultiplatform()
         }
     }
 }
